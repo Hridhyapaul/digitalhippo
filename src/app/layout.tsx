@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Open_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import Navbar from "@/components/default/navbar/Navbar";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -36,6 +37,7 @@ export default function RootLayout({
         )}
       >
         <main className="relative flex flex-col min-h-screen">
+          <Navbar></Navbar>
           <div className="flex-grow flex-1">{children}</div>
         </main>
       </body>
