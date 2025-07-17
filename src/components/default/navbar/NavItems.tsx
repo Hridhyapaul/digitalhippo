@@ -1,7 +1,7 @@
 "use client";
 
 import { PRODUCT_CATEGORIES } from "@/config";
-import React, { use, useRef, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import NavItem from "./NavItem";
 import { useOnClickOutside } from "@/hooks/use-on-click-outside";
 
@@ -16,10 +16,27 @@ const NavItems = () => {
     setActiveIndex((prevIndex) => (prevIndex === i ? null : i));
   };
 
+  // ✅ Use a ref to handle clicks outside the nav items
+  // This will close the dropdown when clicking outside
   const navRef = useRef<HTMLDivElement | null>(null);
   useOnClickOutside(navRef, () => {
     setActiveIndex(null);
   });
+
+  // ✅ Handle Escape key to close the dropdown
+  // This will close the dropdown when Escape is pressed
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setActiveIndex(null); // Close the dropdown when Escape is pressed
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    }
+  }, []);
 
   return (
     <div className="flex items-center gap-4 h-full" ref={navRef}>
