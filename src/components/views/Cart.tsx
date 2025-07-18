@@ -4,6 +4,7 @@ import {
   Sheet,
   SheetContent,
   SheetDescription,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -11,6 +12,9 @@ import {
 import { ShoppingCart } from "lucide-react";
 import React from "react";
 import { Separator } from "../ui/separator";
+import { formatPrice } from "@/lib/utils";
+import Link from "next/link";
+import { buttonVariants } from "../ui/button";
 
 const itemCount = 1; // Placeholder for item count, replace with actual state management
 
@@ -45,9 +49,21 @@ const Cart = () => {
                 </div>
                 <div className="flex">
                     <span className="flex-1">Transaction Fee</span>
-                    <span>Free</span>
+                    <span>{formatPrice(100)}</span>
+                </div>
+                <div className="flex">
+                    <span className="flex-1">Total</span>
+                    <span>{formatPrice(100)}</span>
                 </div>
               </div>
+
+              <SheetFooter>
+                <SheetTrigger asChild>
+                    <Link href="/cart" className={buttonVariants({className: "w-full"})}>
+                    Continue to Checkout
+                    </Link>
+                </SheetTrigger>
+              </SheetFooter>
             </div>
           </>
         ) : (
